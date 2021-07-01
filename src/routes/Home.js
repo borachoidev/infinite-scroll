@@ -1,13 +1,10 @@
 import React from 'react';
+import Header from '../components/Header';
 
 function Home(props) {
   return (
     <>
-      <header>
-        <h1>무한 스크롤</h1>
-        <p>게시물을 검색해보세요</p>
-        <input type="text" placeholder="검색어를 입력하세요" />
-      </header>
+      <Header />
       <main>
         <ul>
           <li>
