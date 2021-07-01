@@ -1,21 +1,12 @@
 import React from 'react';
 import Header from '../components/Header';
+import Main from '../components/Main';
 
 function Home(props) {
   return (
     <>
       <Header />
-      <main>
-        <ul>
-          <li>
-            <h3>
-              <span>id</span>
-              title
-            </h3>
-            <p>content</p>
-          </li>
-        </ul>
-      </main>
+      <Main />
     </>
   );
 }
