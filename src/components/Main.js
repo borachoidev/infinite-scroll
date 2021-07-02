@@ -1,12 +1,43 @@
-import React, { useRef, useCallback } from 'react';
+import React, {
+  useRef,
+  useCallback,
+  useContext,
+  useState,
+  useEffect,
+} from 'react';
 import Article from './Article';
-import useSearch from '../hooks/useSearch';
 import Skeleton from './Skeleton';
 import { List, StyledMain } from './Main.styles';
+import { SearchContext } from '../context/Store';
+import { fetchList } from '../api/axios';
 
-function Main({ pageNum, query }) {
-  const [pageNumber, setPageNumber] = pageNum;
-  const { loading, error, lists, hasMore } = useSearch(query, pageNumber);
+function Main() {
+  const { pageNumber, setPageNumber, query, lists, setLists, postType } =
+    useContext(SearchContext);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+  const [hasMore, setHasMore] = useState(false);
+
+  useEffect(() => {
+    async function fetchAndSetList() {
+      setLoading(true);
+      setError(false);
+      try {
+        const response = await fetchList(query, pageNumber, 'a-posts');
+        setLists(prevLists => {
+          return [...new Set([...prevLists, ...response.data])];
+        });
+        setHasMore(response.data.length > 0);
+        setLoading(false);
+      } catch (e) {
+        setError(true);
+      }
+    }
+    fetchAndSetList();
+  }, [query, pageNumber]);
+  useEffect(() => {
+    setLists([]);
+  }, [query]);
 
   const observer = useRef(null);
   const lastListElementRef = useCallback(
@@ -22,13 +53,10 @@ function Main({ pageNum, query }) {
     },
     [loading, hasMore]
   );
+
   return (
     <StyledMain>
       <List>
-        {loading &&
-          [...Array(10)].map((n, idx) => (
-            <Skeleton key={idx} loading={loading} />
-          ))}
         {lists.map((list, index) => {
           if (lists.length === index + 1) {
             return (
@@ -51,6 +79,7 @@ function Main({ pageNum, query }) {
             );
           }
         })}
+        {loading && <Skeleton loading={loading} />}
         {error && 'Error!'}
       </List>
     </StyledMain>

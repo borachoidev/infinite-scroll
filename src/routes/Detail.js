@@ -13,15 +13,16 @@ import {
 function Detail() {
   const { id } = useParams();
   const history = useHistory();
-  const { loading, error, data } = useDetail(id);
+  const { loading, data, error } = useDetail(id, 'a');
+
   return (
     <Section>
       <Article>
-        <HeaderOne loading={loading}>{data.title}</HeaderOne>
-        <Paragraph loading={loading}>{data.content}</Paragraph>
+        <HeaderOne loading={loading ? 'true' : ''}>{data.title}</HeaderOne>
+        <Paragraph loading={loading ? 'true' : ''}>{data.content}</Paragraph>
         {error && 'Error!'}
       </Article>
-      <Button type="button" onClick={() => history.push('/')}>
+      <Button type="button" onClick={() => history.goBack()}>
         뒤로가기
       </Button>
     </Section>

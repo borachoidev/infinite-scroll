@@ -1,15 +1,22 @@
-import React, { useRef } from 'react';
+import React, { useRef, useContext, useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { Input, InputContainer } from './Search.styles';
+import { SearchContext } from '../context/Store';
+import useDebounce from '../hooks/useDebounce';
 
-function Search({ queryState, setPageNumber }) {
+function Search() {
   const search = useRef(null);
-  const [query, setQuery] = queryState;
+  const [beforeDebounced, setBeforeDbounced] = useState('');
+  const { setQuery, setPageNumber } = useContext(SearchContext);
+  const query = useDebounce(beforeDebounced, 150);
   function handleSearch(e) {
-    setQuery(e.target.value);
+    setBeforeDbounced(e.target.value);
     setPageNumber(0);
   }
+  useEffect(() => {
+    setQuery(query);
+  }, [query]);
 
   function handleFocus(e) {
     search.current.focus();
@@ -23,7 +30,7 @@ function Search({ queryState, setPageNumber }) {
       <Input
         ref={search}
         type="search"
-        value={query}
+        value={beforeDebounced}
         placeholder="검색어를 입력하세요"
         onChange={handleSearch}
       />

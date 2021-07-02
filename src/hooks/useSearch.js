@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { fetchList } from '../api/axios';
 
-export default function useSearch(query, pageNumber) {
+export default function useSearch(query, pageNumber, postType) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [lists, setLists] = useState([]);
@@ -12,28 +13,21 @@ export default function useSearch(query, pageNumber) {
   }, [query]);
 
   useEffect(() => {
-    setLoading(true);
-    setError(false);
-    let cancel;
-    axios({
-      method: 'GET',
-      url: 'https://recruit-api.yonple.com/recruit/689322/a-posts',
-      params: { search: query, page: pageNumber },
-      cancelToken: new axios.CancelToken(c => (cancel = c)),
-    })
-      .then(res => {
+    async function fetchAndSetList() {
+      setLoading(true);
+      setError(false);
+      try {
+        const response = await fetchList(query, pageNumber, 'a-posts');
         setLists(prevLists => {
-          return [...new Set([...prevLists, ...res.data])];
+          return [...new Set([...prevLists, ...response.data])];
         });
-        setHasMore(res.data.length > 0);
+        setHasMore(response.data.length > 0);
         setLoading(false);
-      })
-      .catch(e => {
-        if (axios.isCancel(e)) return;
+      } catch (e) {
         setError(true);
-      });
-
-    return () => cancel();
+      }
+    }
+    fetchAndSetList();
   }, [query, pageNumber]);
 
   return { loading, error, lists, hasMore };
