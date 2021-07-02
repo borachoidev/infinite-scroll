@@ -4,7 +4,7 @@ const SearchContext = React.createContext();
 const Store = props => {
   const [query, setQuery] = useState('');
   const [pageNumber, setPageNumber] = useState(0);
-  const [postType, setPostType] = useState({ a: 'a-posts', b: 'b-posts' });
+  const [postType, setPostType] = useState('a');
   const [lists, setLists] = useState([]);
 
   return (

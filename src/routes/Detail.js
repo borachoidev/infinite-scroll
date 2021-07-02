@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useParams } from 'react-router';
 import { useHistory } from 'react-router-dom';
+import { SearchContext } from '../context/Store';
 import useDetail from '../hooks/useDetail';
 import {
   Article,
@@ -13,7 +14,8 @@ import {
 function Detail() {
   const { id } = useParams();
   const history = useHistory();
-  const { loading, data, error } = useDetail(id, 'a');
+  const { postType } = useContext(SearchContext);
+  const { loading, data, error } = useDetail(id, postType);
 
   return (
     <Section>

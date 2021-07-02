@@ -10,6 +10,7 @@ import Skeleton from './Skeleton';
 import { List, StyledMain } from './Main.styles';
 import { SearchContext } from '../context/Store';
 import { fetchList } from '../api/axios';
+import Nav from './Nav';
 
 function Main() {
   const { pageNumber, setPageNumber, query, lists, setLists, postType } =
@@ -23,7 +24,7 @@ function Main() {
       setLoading(true);
       setError(false);
       try {
-        const response = await fetchList(query, pageNumber, 'a-posts');
+        const response = await fetchList(query, pageNumber, postType);
         setLists(prevLists => {
           return [...new Set([...prevLists, ...response.data])];
         });
@@ -34,10 +35,10 @@ function Main() {
       }
     }
     fetchAndSetList();
-  }, [query, pageNumber]);
+  }, [query, pageNumber, postType]);
   useEffect(() => {
     setLists([]);
-  }, [query]);
+  }, [query, postType]);
 
   const observer = useRef(null);
   const lastListElementRef = useCallback(
@@ -56,6 +57,7 @@ function Main() {
 
   return (
     <StyledMain>
+      <Nav />
       <List>
         {lists.map((list, index) => {
           if (lists.length === index + 1) {
