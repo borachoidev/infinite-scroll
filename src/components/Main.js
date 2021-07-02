@@ -2,6 +2,7 @@ import React, { useRef, useCallback } from 'react';
 import Article from './Article';
 import useSearch from '../hooks/useSearch';
 import styled from 'styled-components';
+import Skeleton from './Skeleton';
 
 const StyledMain = styled.main`
   width: 1000px;
@@ -40,6 +41,10 @@ function Main({ pageNum, query }) {
   return (
     <StyledMain>
       <List>
+        {loading &&
+          [...Array(10)].map((n, idx) => (
+            <Skeleton key={idx} loading={loading} />
+          ))}
         {lists.map((list, index) => {
           if (lists.length === index + 1) {
             return (
@@ -62,7 +67,6 @@ function Main({ pageNum, query }) {
             );
           }
         })}
-        {loading && 'Loading...'}
         {error && 'Error!'}
       </List>
     </StyledMain>
