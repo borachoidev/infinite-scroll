@@ -17,7 +17,7 @@ export const Button = styled.button`
   width: 60px;
   text-align: center;
   height: 25px;
-  color: ${props => (props.selected ? 'orange' : 'black')};
+  color: ${props => (props.styleComponentProp ? 'orange' : 'black')};
   &:hover {
     color: #ffc966;
     background-color: #fcf8f2;

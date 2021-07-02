@@ -12,7 +12,7 @@ function Nav() {
     <StyledNav>
       <Button
         type="button"
-        selected={postType === 'a' ? 'true' : ''}
+        styleComponentProp={postType === 'a' ? 'true' : ''}
         onClick={handleClick}
         data-type="a"
       >
@@ -20,7 +20,7 @@ function Nav() {
       </Button>
       <Button
         type="button"
-        selected={postType === 'b' ? 'true' : ''}
+        styleComponentProp={postType === 'b' ? 'true' : ''}
         onClick={handleClick}
         data-type="b"
       >
