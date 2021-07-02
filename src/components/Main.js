@@ -1,25 +1,9 @@
 import React, { useRef, useCallback } from 'react';
 import Article from './Article';
 import useSearch from '../hooks/useSearch';
-import styled from 'styled-components';
 import Skeleton from './Skeleton';
+import { List, StyledMain } from './Main.styles';
 
-const StyledMain = styled.main`
-  width: 1000px;
-  margin: auto;
-`;
-
-const List = styled.ul`
-  border: #dbd5cc 1px solid;
-  border-radius: 7px;
-  box-shadow: 0px 0px 13px rgba(219, 213, 204, 0.3) inset;
-  width: 100%;
-  padding: 20px;
-  height: 100%;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
 function Main({ pageNum, query }) {
   const [pageNumber, setPageNumber] = pageNum;
   const { loading, error, lists, hasMore } = useSearch(query, pageNumber);
