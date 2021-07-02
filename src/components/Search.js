@@ -4,6 +4,7 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
 
 const InputContainer = styled.div`
+  margin-bottom: 3rem;
   border: 1px solid #c3c1c3;
   padding: 10px;
   border-radius: 4px;

@@ -9,16 +9,21 @@ const Header = styled.header`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: 5.5rem;
 `;
 
-function Home(props) {
+const HeaderOne = styled.h1`
+  font-size: 3rem;
+  margin: 0.7rem;
+  font-weight: normal;
+`;
+function Home() {
   const [query, setQuery] = useState('');
   const [pageNumber, setPageNumber] = useState(0);
   return (
     <>
       <Header>
-        <h1>무한 스크롤 </h1>
-        <p>게시물을 검색해보세요</p>
+        <HeaderOne>게시물을 검색해보세요</HeaderOne>
         <Search queryState={[query, setQuery]} setPageNumber={setPageNumber} />
       </Header>
       <Main pageNum={[pageNumber, setPageNumber]} query={query} />
