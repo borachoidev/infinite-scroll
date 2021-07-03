@@ -1,7 +1,5 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { useParams } from 'react-router';
-import { useHistory } from 'react-router-dom';
-import { SearchContext } from '../context/Store';
 import useDetail from '../hooks/useDetail';
 import {
   Article,
@@ -11,11 +9,10 @@ import {
   Section,
 } from './Detail.sytles';
 
-function Detail() {
-  const { id } = useParams();
-  const history = useHistory();
-  const { postType } = useContext(SearchContext);
-  const { loading, data, error } = useDetail(id, postType);
+function Detail({ history, match, location }) {
+  const { type } = useParams();
+  const id = location.search.split('=')[1];
+  const { loading, data, error } = useDetail(id, type);
 
   return (
     <Section>
