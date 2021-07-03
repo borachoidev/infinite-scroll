@@ -16,7 +16,7 @@ function Nav() {
         onClick={handleClick}
         data-type="a"
       >
-        A POST
+        A Posts
       </Button>
       <Button
         type="button"
@@ -24,7 +24,7 @@ function Nav() {
         onClick={handleClick}
         data-type="b"
       >
-        B POST
+        B Posts
       </Button>
     </StyledNav>
   );
