@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { SearchContext } from '../context/Store';
 import {
   HeaderThree,
   List,
@@ -8,8 +9,9 @@ import {
 } from './Article.styles';
 
 function Article({ id, title, content, innerRef }) {
+  const { postType } = useContext(SearchContext);
   return (
-    <StyledLink to={{ pathname: `/${id}`, state: { id } }}>
+    <StyledLink to={{ pathname: `/${postType}`, search: `?id=${id}` }}>
       <List ref={innerRef}>
         <HeaderThree>
           <Span>{id}.</Span>

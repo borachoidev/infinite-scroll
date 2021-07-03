@@ -18,7 +18,7 @@ function Main() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [hasMore, setHasMore] = useState(false);
-
+  // 서버통신
   useEffect(() => {
     async function fetchAndSetList() {
       setLoading(true);
@@ -40,6 +40,7 @@ function Main() {
     setLists([]);
   }, [query, postType]);
 
+  // 마지막게시물 추적
   const observer = useRef(null);
   const lastListElementRef = useCallback(
     node => {

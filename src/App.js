@@ -9,7 +9,7 @@ function App() {
     <Store>
       <BrowserRouter>
         <Route exact={true} path="/" component={Home} />
-        <Route path="/:id" component={Detail} />
+        <Route path="/:type" component={Detail} />
       </BrowserRouter>
     </Store>
   );
