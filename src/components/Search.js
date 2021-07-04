@@ -1,14 +1,12 @@
-import React, { useRef, useContext, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { Input, InputContainer } from './Search.styles';
-import { SearchContext } from '../context/Store';
 import useDebounce from '../hooks/useDebounce';
 
-function Search() {
+function Search({ setQuery, setPageNumber }) {
   const search = useRef(null);
   const [beforeDebounced, setBeforeDbounced] = useState('');
-  const { setQuery, setPageNumber } = useContext(SearchContext);
   const query = useDebounce(beforeDebounced, 150);
   function handleSearch(e) {
     setBeforeDbounced(e.target.value);

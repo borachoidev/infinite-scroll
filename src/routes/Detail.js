@@ -9,7 +9,9 @@ import {
   Section,
 } from './Detail.sytles';
 
-function Detail({ history, match, location }) {
+
+function Detail({ history, location }) {
+
   const { type } = useParams();
   const id = location.search.split('=')[1];
   const { loading, data, error } = useDetail(id, type);
@@ -19,7 +21,7 @@ function Detail({ history, match, location }) {
       <Article>
         <HeaderOne loading={loading ? 'true' : ''}>{data.title}</HeaderOne>
         <Paragraph loading={loading ? 'true' : ''}>{data.content}</Paragraph>
-        {error && 'Error!'}
+        {error && 'error'}
       </Article>
       <Button type="button" onClick={() => history.goBack()}>
         뒤로가기
