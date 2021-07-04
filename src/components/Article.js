@@ -8,6 +8,7 @@ import {
   StyledLink,
 } from './Article.styles';
 
+
 function Article({ id, title, content, innerRef, postType }) {
   return (
     <StyledLink to={{ pathname: `/${postType}`, search: `?id=${id}` }}>

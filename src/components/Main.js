@@ -6,6 +6,7 @@ import Nav from './Nav';
 import { useHistory } from 'react-router';
 import useSearch from '../hooks/useSearch';
 
+
 function Main({ pageNumbers, query, postTypes }) {
   const [pageNumber, setPageNumber] = pageNumbers;
   const [postType, setPostType] = postTypes;

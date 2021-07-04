@@ -9,6 +9,8 @@ function App() {
       <Route exact={true} path="/" component={Home} />
       <Route path="/:type" component={Detail} />
     </BrowserRouter>
+
+
   );
 }
 

@@ -9,7 +9,9 @@ import {
   Section,
 } from './Detail.sytles';
 
+
 function Detail({ history, location }) {
+
   const { type } = useParams();
   const id = location.search.split('=')[1];
   const { loading, data, error } = useDetail(id, type);
