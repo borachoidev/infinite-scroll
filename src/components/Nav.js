@@ -1,12 +1,12 @@
-import React, { useContext } from 'react';
-import { SearchContext } from '../context/Store';
+import React from 'react';
 import { Button, StyledNav } from './Nav.styles';
 
-function Nav() {
-  const { postType, setPostType } = useContext(SearchContext);
+function Nav({ postTypes, setPageNumber }) {
+  const [postType, setPostType] = postTypes;
   const handleClick = e => {
     const type = e.target.dataset.type;
     setPostType(type);
+    setPageNumber(0);
   };
   return (
     <StyledNav>

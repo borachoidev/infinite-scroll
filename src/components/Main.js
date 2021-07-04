@@ -1,44 +1,22 @@
-import React, {
-  useRef,
-  useCallback,
-  useContext,
-  useState,
-  useEffect,
-} from 'react';
+import React, { useRef, useCallback } from 'react';
 import Article from './Article';
 import Skeleton from './Skeleton';
 import { List, StyledMain } from './Main.styles';
-import { SearchContext } from '../context/Store';
-import { fetchList } from '../api/axios';
 import Nav from './Nav';
+import { useHistory } from 'react-router';
+import useSearch from '../hooks/useSearch';
 
-function Main() {
-  const { pageNumber, setPageNumber, query, lists, setLists, postType } =
-    useContext(SearchContext);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
-  const [hasMore, setHasMore] = useState(false);
-  // 서버통신
-  useEffect(() => {
-    async function fetchAndSetList() {
-      setLoading(true);
-      setError(false);
-      try {
-        const response = await fetchList(query, pageNumber, postType);
-        setLists(prevLists => {
-          return [...new Set([...prevLists, ...response.data])];
-        });
-        setHasMore(response.data.length > 0);
-        setLoading(false);
-      } catch (e) {
-        setError(true);
-      }
-    }
-    fetchAndSetList();
-  }, [query, pageNumber, postType]);
-  useEffect(() => {
-    setLists([]);
-  }, [query, postType]);
+function Main({ pageNumbers, query, postTypes }) {
+  const [pageNumber, setPageNumber] = pageNumbers;
+  const [postType, setPostType] = postTypes;
+  const history = useHistory;
+
+  const { lists, loading, error, hasMore } = useSearch(
+    query,
+    pageNumber,
+    history,
+    postType
+  );
 
   // 마지막게시물 추적
   const observer = useRef(null);
@@ -58,7 +36,7 @@ function Main() {
 
   return (
     <StyledMain>
-      <Nav />
+      <Nav postTypes={postTypes} setPageNumber={setPageNumber} />
       <List>
         {lists.map((list, index) => {
           if (lists.length === index + 1) {
@@ -69,6 +47,7 @@ function Main() {
                 id={list.id}
                 title={list.title}
                 content={list.content}
+                postType={postType}
               />
             );
           } else {
@@ -78,6 +57,7 @@ function Main() {
                 id={list.id}
                 title={list.title}
                 content={list.content}
+                postType={postType}
               />
             );
           }
