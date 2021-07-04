@@ -10,10 +10,10 @@ function Search({ setQuery, setPageNumber }) {
   const query = useDebounce(beforeDebounced, 150);
   function handleSearch(e) {
     setBeforeDbounced(e.target.value);
-    setPageNumber(0);
   }
   useEffect(() => {
     setQuery(query);
+    setPageNumber(0);
   }, [query]);
 
   function handleFocus(e) {
